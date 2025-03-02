@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('products.urls')),
     path('api/', include('orders.urls')),
+    path('api/users/', include('users.urls')),
 
     # URL для получения токенов
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),

@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
-    products = models.ManyToManyField(Product, related_name="orders")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Добавляем связь с пользователем
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True,)
+    quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=20,
