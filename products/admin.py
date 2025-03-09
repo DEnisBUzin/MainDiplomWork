@@ -11,7 +11,11 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'category__name')
     autocomplete_fields = ('category',)
     ordering = ('-created_at',)
-    list_editable = ('price', 'stock')  # Теперь stock есть в list_display
+    list_editable = ('price', 'stock')
+    fieldsets = (
+        ('Основная информация', {'fields': ('name', 'description', 'price', 'stock', 'category')}),
+        ('Дополнительно', {'fields': ('attributes',)}),
+    )
 
     def stock_status(self, obj):
         """Цветовая индикация остатка товаров."""
