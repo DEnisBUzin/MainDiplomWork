@@ -1,0 +1,5 @@
+<p>Новый заказ №{{ order.id }} от {{ order.user.username }}</p>
+<p>Товар: {{ order.product.name }}</p>
+<p>Количество: {{ order.quantity }}</p>
+<p>Дата заказа: {{ order.created_at }}</p>
+<p>Статус: {{ order.get_status_display }}</p>

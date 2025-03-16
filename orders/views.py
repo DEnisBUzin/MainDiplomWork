@@ -4,7 +4,9 @@ from .models import Order
 from .serializers import OrderSerializer
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .permissions import IsOwnerOrReadOnly
-
+from django.shortcuts import render, redirect
+from .models import Order
+from .utils import send_invoice_to_admin, send_order_confirmation
 
 class OrderDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
@@ -22,5 +24,7 @@ class OrderListCreateView(ListCreateAPIView):
         return Order.objects.filter(user=self.request.user)  # Показываем только заказы текущего пользователя
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)  # Автоматически назначаем пользователя
-
+        order = serializer.save(user=self.request.user)  # Автоматически назначаем пользователя
+        send_invoice_to_admin(order)
+        send_order_confirmation(order)
+        return order  # Возвращаем созданный заказ
