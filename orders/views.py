@@ -27,4 +27,4 @@ class OrderListCreateView(ListCreateAPIView):
         order = serializer.save(user=self.request.user)  # Автоматически назначаем пользователя
         send_invoice_to_admin(order)
         send_order_confirmation(order)
-        return order  # Возвращаем созданный заказ
+        return order
